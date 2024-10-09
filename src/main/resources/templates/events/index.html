@@ -1,18 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Coding Events</title>
-</head>
-<body>
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
 
 <h1>All Events</h1>
+<nav th:replace="fragments :: navigation"></nav>
+<br>
+<br>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Address</th>
+    </tr>
+    </thead>
+   <th:block th:each="event : ${events}">
+    <tr>
+        <td>
+            <span th:text="${event.key}"></span>
+        </td>
+        <td>
+            <span th:text="${event.value}"></span>
+        </td>
+        <td>
+            <span th:replace="fragments :: address"></span>
+        </td>
+    </tr>
+   </th:block>
 
-<ul>
-    <th:block th:each="event : ${events}">
-        <li th:text="${event}"></li>
-    </th:block>
-</ul>
+
+</table>
 
 </body>
 </html>

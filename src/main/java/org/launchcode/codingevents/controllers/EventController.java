@@ -8,7 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
 
 /**
  * Created by Chris Bay
@@ -17,8 +19,14 @@ import java.util.List;
 @RequestMapping("events")
 public class EventController {
 
-    private static List<String> events = new ArrayList<>();
 
+    private static HashMap<String,String> events = new HashMap();
+
+    static {
+        events.put("Mia's birthday", "Mia's 5th birthday bash");
+        events.put("Erica's birthday", "Erica's 42nd birthday bash ");
+        events.put("Kevin's birthday", "Kevin's 28th birthday bash");
+    }
     @GetMapping
     public String displayAllEvents(Model model) {
        model.addAttribute("events", events);
@@ -30,8 +38,10 @@ public class EventController {
         return "events/create";
 }
 @PostMapping("create")
-public String createEvent(@RequestParam String eventName){
-        events.add(eventName);
-        return "redirect:";
+public String createEvent(@RequestParam String eventName, String descriptionName){
+        events.put(eventName,descriptionName);
+        return "redirect:/events";
     }
+
+
 }
