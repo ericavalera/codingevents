@@ -21,9 +21,9 @@ public class EventController {
 
     private static List<Event> events = new ArrayList();
     static{
-        events.add(new Event("Mia's Birthday"));
-        events.add(new Event("Erica's Birthday"));
-        events. add(new Event("Kev's Birthday"));
+        events.add(new Event("Mia's Birthday", "bday bsh"));
+        events.add(new Event("Erica's Birthday", "bday bs"));
+        events. add(new Event("Kev's Birthday", "bday bs"));
     }
 
     @GetMapping
@@ -38,8 +38,8 @@ public class EventController {
         return "events/create";
 }
 @PostMapping("create")
-public String createEvent(@RequestParam String eventName){
-        events.add(new Event(eventName));
+public String createEvent(@RequestParam String eventName, @RequestParam String eventDescription){
+        events.add(new Event(eventName, eventDescription));;
         return "redirect:/events";
     }
 
