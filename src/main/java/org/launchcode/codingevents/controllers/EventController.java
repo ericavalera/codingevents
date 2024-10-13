@@ -10,9 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * Created by Chris Bay
- */
 @Controller
 @RequestMapping("events")
 public class EventController {
