@@ -21,15 +21,15 @@ public class EventController {
 
     private static List<Event> events = new ArrayList();
     static{
-        events.add(new Event("Mia's Birthday", "bday bsh"));
-        events.add(new Event("Erica's Birthday", "bday bs"));
-        events. add(new Event("Kev's Birthday", "bday bs"));
+        events.add(new Event("Mia's Birthday", "bday bash"));
+        events.add(new Event("Erica's Birthday", "bday bash"));
+        events. add(new Event("Kev's Birthday", "bday bash"));
     }
 
     @GetMapping
     public String displayAllEvents(Model model) {
         model.addAttribute("title", "All Events");
-       model.addAttribute("events", events);
+        model.addAttribute("events", events);
         return "events/index";
     }
 @GetMapping("create")
