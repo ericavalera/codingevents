@@ -4,7 +4,7 @@
 
 <body class="container">
 
-<h1>All Events</h1>
+
 <nav th:replace="fragments :: navigation"></nav>
 <br>
 <br>
@@ -12,24 +12,12 @@
     <thead>
     <tr>
         <th>Name</th>
-        <th>Description</th>
-        <th>Address</th>
     </tr>
     </thead>
-   <th:block th:each="event : ${events}">
-    <tr>
-        <td>
-            <span th:text="${event.key}"></span>
-        </td>
-        <td>
-            <span th:text="${event.value}"></span>
-        </td>
-        <td>
-            <span th:replace="fragments :: address"></span>
+    <tr th:each = "event : ${events}">
+        <td th:text="${event.name}">
         </td>
     </tr>
-   </th:block>
-
 
 </table>
 
