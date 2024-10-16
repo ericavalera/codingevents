@@ -1,6 +1,7 @@
 package org.launchcode.codingevents.models;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -9,6 +10,15 @@ import java.util.Objects;
 public class Event {
     private int id;
     private static int nextId= 1;
+    private Boolean attendeeRegister = true;
+
+
+    @Min(value= 1, message = "Number of attendess must be a number 1 or more.")
+    private int attendees;
+
+    @NotBlank
+    @Size(min = 3, max = 50, message = "Location must be between 3 to 50 characters.")
+    private String location;
 
     @Size(max = 500, message = "Description is too long.")
     private String description;
@@ -21,14 +31,23 @@ public class Event {
     @Email(message = "Invalid email, try again.")
     private String contactEmail;
 
-    public Event(){}
+    private EventType type;
+    public Event(){
+        this.id = nextId;
+        nextId ++;
+    }
 
-    public Event(String name, String description, String contactEmail) {
+    public Event(String name, String description,String location, String contactEmail, EventType type,
+                 Boolean attendeeRegister, int attendees) {
+        this();
+        this.location = location;
         this.name = name;
         this.description= description;
-        this.id = nextId;
         this.contactEmail = contactEmail;
-        nextId ++;
+        this.type= type;
+        this.attendeeRegister = attendeeRegister;
+        this.attendees = attendees;
+
     }
 
     public String getName() {
@@ -62,6 +81,36 @@ public class Event {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public EventType getType() {
+        return type;
+    }
+
+    public void setType(EventType type) {
+        this.type = type;
+    }
+
+    public @NotBlank @Size(min = 3, max = 50) String getLocation() {
+        return location;
+    }
+
+    public void setLocation(@NotBlank @Size(min = 3, max = 50) String location) {
+        this.location = location;
+    }
+
+    public Boolean getAttendeeRegister() {
+        return attendeeRegister;
+    }
+
+
+    @Min(value = 1, message = "Number of attendess must be a number 1 or more.")
+    public int getAttendees() {
+        return attendees;
+    }
+
+    public void setAttendees(@Min(value = 1, message = "Number of attendess must be a number 1 or more.") int attendees) {
+        this.attendees = attendees;
     }
 
     @Override
