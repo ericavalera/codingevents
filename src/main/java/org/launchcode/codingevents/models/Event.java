@@ -1,35 +1,41 @@
 package org.launchcode.codingevents.models;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 
+@Entity
 public class Event {
+
+    @Id
+    @GeneratedValue
     private int id;
-    private static int nextId= 1;
 
-    @Size(max = 500, message = "Description is too long.")
-    private String description;
-
-    @NotBlank(message = "Name is required.")
-    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters.")
+    @NotBlank(message = "Name is required")
+    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
     private String name;
 
-    @NotBlank(message = "Email is required.")
-    @Email(message = "Invalid email, try again.")
+    @Size(max = 500, message = "Description too long!")
+    private String description;
+
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email. Try again.")
     private String contactEmail;
 
-    public Event(){}
+    @Enumerated(EnumType.STRING)
+    private EventType type;
 
-    public Event(String name, String description, String contactEmail) {
+    public Event(String name, String description, String contactEmail, EventType type) {
         this.name = name;
-        this.description= description;
-        this.id = nextId;
+        this.description = description;
         this.contactEmail = contactEmail;
-        nextId ++;
+        this.type = type;
     }
+
+    public Event() {}
 
     public String getName() {
         return name;
@@ -39,29 +45,37 @@ public class Event {
         this.name = name;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public @Email String getContactEmail() {
-        return contactEmail;
-    }
-
-    public void setContactEmail(@Email String contactEmail) {
-        this.contactEmail = contactEmail;
-    }
-
-    @Override
-    public String toString() {
-        return "name";
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getContactEmail() {
+        return contactEmail;
+    }
+
+    public void setContactEmail(String contactEmail) {
+        this.contactEmail = contactEmail;
+    }
+
+    public EventType getType() {
+        return type;
+    }
+
+    public void setType(EventType type) {
+        this.type = type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 
     @Override
@@ -74,6 +88,6 @@ public class Event {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hash(id);
     }
 }
